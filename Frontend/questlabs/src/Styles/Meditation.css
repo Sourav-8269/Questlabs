@@ -1,0 +1,29 @@
+#meditationDiv{
+    width: 80%;
+    /* border: 1px solid red; */
+    margin: auto;
+    padding-top: 20px;
+}
+#stepper{
+    width: 60%;
+    margin: auto;
+    padding: 20px;
+    /* border: 1px solid red; */
+}
+#medTitle{
+    /* border: 1px solid red; */
+    padding: 20px;
+}
+#inputDiv{
+    display: flex;
+    flex-direction: column;
+}
+#text{
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    min-height: 100px;
+}
+#btn{
+    margin: 20px 0 20px 0;
+}
