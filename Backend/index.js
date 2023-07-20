@@ -10,15 +10,15 @@ app.get("/", (req, res) => {
   res.send("Welcome to App");
 });
 
-app.get("/meditation", (req, res) => {
-    console.log(req)
+app.post("/meditation",async(req, res) => {
+    console.log(req.body,"req body payload")
   let payload = {
     usecase: "GPT_MEDITATION_CREATOR",
     userInput:
       "feeling sad right now, they currently are developers and facing sleeping issues today",
   };
   try{
-      axios.post("https://gpt-api.richexplorer.com/api/general", payload)
+      await axios.post("https://gpt-api.richexplorer.com/api/general", payload)
         .then((data) => {
           res.send(data.data);
         })

@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import "./../Styles/Meditation.css";
 import { useState } from "react";
+import axios from "axios";
 
 const steps = [
   { title: "First", description: "Contact Info" },
@@ -27,16 +28,34 @@ const Meditation = () => {
   const [feeling, setFeeling] = useState("");
   const [work, setWork] = useState("");
   const [issues, setIssues] = useState("");
+  const [result,setResult]=useState("");
+
+  const getMeditationData=()=>{
+    console.log(feeling,work,issues)
+    const payload={feeling,work,issues};
+    console.log(payload);
+    axios.post("http://localhost:8080/meditation",payload)
+    .then((res)=>{
+        // console.log(res)
+        setResult(res.data.generatedText)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+  }
 
   return (
     <Box id="meditationDiv">
       {/* <Heading as='h2' size='2xl'>
     (2xl) In love with React & Next
   </Heading> */}
-      <Text fontSize={["25px", "55px"]} fontWeight="bold">
+      <Heading fontSize={["35px", "55px"]} fontWeight="bold" id="medTitle" onClick={()=>window.location.reload()}>
         Meditator
+      </Heading>
+      <Text fontSize={["35px", "40px"]} fontWeight="" id="medTitle" textColor="#3b82f6">
+      Let's meditate!
       </Text>
-      <Stepper size="lg" colorScheme="yellow" index={current} id="stepper">
+      {!result&&<Stepper size="lg" colorScheme="yellow" index={current} id="stepper">
         {steps.map((step, index) => (
           <Step key={index}>
             <StepIndicator>
@@ -51,7 +70,7 @@ const Meditation = () => {
             <StepSeparator />
           </Step>
         ))}
-      </Stepper>
+      </Stepper>}
       {current == 0 && (
         <Box id="inputDiv">
           <Text fontSize={"25px"} id="medTitle">
@@ -68,7 +87,13 @@ const Meditation = () => {
             <Button
               colorScheme="telegram"
               id="btn"
-              onClick={() => setCurrent((prev) => prev + 1)}
+              onClick={() => {
+                if(feeling==""){
+                    alert("Please enter your feelings using input box!");
+                }else{
+                    setCurrent((prev) => prev + 1)
+                }
+              }}
             >
               Next
             </Button>
@@ -91,7 +116,13 @@ const Meditation = () => {
             <Button
               colorScheme="telegram"
               id="btn"
-              onClick={() => setCurrent((prev) => prev + 1)}
+              onClick={() => {
+                if(work==""){
+                    alert("Please enter the work you do using input box!");
+                }else{
+                    setCurrent((prev) => prev + 1)
+                }
+              }}
             >
               Next
             </Button>
@@ -114,13 +145,23 @@ const Meditation = () => {
             <Button
               colorScheme="telegram"
               id="btn"
-              onClick={() => setCurrent((prev) => prev + 1)}
+              onClick={() => {
+                if(issues==""){
+                    alert("Please enter your issues using input box!");
+                }else{
+                    setCurrent((prev) => prev + 1)
+                    getMeditationData();
+                }
+              }}
             >
               Next
             </Button>
           </Box>
         </Box>
       )}
+      {result&&<Text fontSize={["25px", "30px"]} textAlign="left">
+        {result}
+        </Text>}
       {/* bg="#3b82f6" */}
       {/* <Button
         colorScheme="telegram"
