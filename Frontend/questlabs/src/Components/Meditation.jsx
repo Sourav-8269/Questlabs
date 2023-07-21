@@ -34,7 +34,7 @@ const Meditation = () => {
     console.log(feeling,work,issues)
     const payload={feeling,work,issues};
     console.log(payload);
-    axios.post("http://localhost:8080/meditation",payload)
+    axios.post("https://fine-gold-trout-fez.cyclic.app/meditation",payload)
     .then((res)=>{
         // console.log(res)
         setResult(res.data.generatedText)
@@ -46,15 +46,12 @@ const Meditation = () => {
 
   return (
     <Box id="meditationDiv">
-      {/* <Heading as='h2' size='2xl'>
-    (2xl) In love with React & Next
-  </Heading> */}
-      <Heading fontSize={["35px", "55px"]} fontWeight="bold" id="medTitle" onClick={()=>window.location.reload()}>
+      <Heading fontSize={["35px", "55px"]} cursor="pointer" fontWeight="bold" id="medTitle" onClick={()=>window.location.reload()}>
         Meditator
       </Heading>
-      <Text fontSize={["35px", "40px"]} fontWeight="" id="medTitle" textColor="#3b82f6">
+      {result&&<Text fontSize={["35px", "40px"]} fontWeight="" id="medTitle" textColor="#3b82f6">
       Let's meditate!
-      </Text>
+      </Text>}
       {!result&&<Stepper size="lg" colorScheme="yellow" index={current} id="stepper">
         {steps.map((step, index) => (
           <Step key={index}>
